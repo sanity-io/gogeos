@@ -11,9 +11,9 @@ import (
 	"math"
 	"os"
 
-	"code.google.com/p/draw2d/draw2d"
+	"github.com/llgcode/draw2d"
 
-	"github.com/paulsmith/gogeos/geos"
+	"github.com/Zomato/gogeos/geos"
 )
 
 const (

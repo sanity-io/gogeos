@@ -1,7 +1,7 @@
 gogeos - Go library for spatial data operations and geometric algorithms
 ========================================================================
 
-[![Build Status](https://travis-ci.org/paulsmith/gogeos.png?branch=master)](https://travis-ci.org/paulsmith/gogeos)
+<!-- [![Build Status](https://travis-ci.org/paulsmith/gogeos.png?branch=master)](https://travis-ci.org/paulsmith/gogeos) -->
 
 gogeos is a library for Go that provides operations on spatial data and
 geometric algorithms.
@@ -17,7 +17,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/paulsmith/gogeos/geos"
+	"github.com/Zomato/gogeos/geos"
 )
 
 func main() {
@@ -46,8 +46,8 @@ gogeos is an open source project.
 
 ### Community
 
- * [Source code: GitHub project](https://github.com/paulsmith/gogeos)
- * [Issues tracker](https://github.com/paulsmith/gogeos/issues)
+ * [Source code: GitHub project](https://github.com/Zomato/gogeos)
+ * [Issues tracker](https://github.com/Zomato/gogeos/issues)
  * [Mailing list: gogeos@googlegroups.com](https://groups.google.com/forum/?fromgroups#!forum/gogeos)
  * [IRC: #gogeos on freenode](irc://irc.freenode.net/gogeos)
 
@@ -86,14 +86,14 @@ $ sudo make install
 ### Installing gogeos
 
 ```bash
-$ go get github.com/paulsmith/gogeos/geos
+$ go get github.com/Zomato/gogeos/geos
 ```
 
 Documentation
 -------------
 
  * [Main gogeos documentation](http://paulsmith.github.io/gogeos/)
- * [godoc](http://godoc.org/github.com/paulsmith/gogeos/geos)
+ * [godoc](http://godoc.org/github.com/Zomato/gogeos/geos)
 
 Example
 -------
@@ -121,7 +121,7 @@ to use in single-value contexts. In production code, though, you’ll want to
 check the error value.
 
 *(NB: these graphics weren't produced by gogeos directly - I used the
-excellent [draw2d](http://code.google.com/p/draw2d/draw2d) package to render
+excellent [draw2d](https://www.github.com/llgcode/draw2d) package to render
 the output of gogeos functions.)*
 
 License
