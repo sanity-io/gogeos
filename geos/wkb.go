@@ -8,27 +8,34 @@ import "C"
 import (
 	"encoding/hex"
 	"runtime"
+	"sync"
 	"unsafe"
 )
 
 type wkbDecoder struct {
 	r *C.GEOSWKBReader
+	m sync.Mutex
 }
 
 func newWkbDecoder() *wkbDecoder {
 	r := cGEOSWKBReader_create()
-	d := &wkbDecoder{r}
+	d := &wkbDecoder{r: r}
 	runtime.SetFinalizer(d, (*wkbDecoder).destroy)
 	return d
 }
 
 func (d *wkbDecoder) destroy() {
-	// XXX: mutex
+	d.m.Lock()
+	defer d.m.Unlock()
+
 	cGEOSWKBReader_destroy(d.r)
 	d.r = nil
 }
 
 func (d *wkbDecoder) decode(wkb []byte) (*Geometry, error) {
+	d.m.Lock()
+	defer d.m.Unlock()
+
 	var cwkb []C.uchar
 	for i := range wkb {
 		cwkb = append(cwkb, C.uchar(wkb[i]))
@@ -50,6 +57,7 @@ func (d *wkbDecoder) decodeHex(wkbHex string) (*Geometry, error) {
 
 type wkbEncoder struct {
 	w *C.GEOSWKBWriter
+	m sync.Mutex
 }
 
 func newWkbEncoder() *wkbEncoder {
@@ -57,12 +65,15 @@ func newWkbEncoder() *wkbEncoder {
 	if w == nil {
 		return nil
 	}
-	e := &wkbEncoder{w}
+	e := &wkbEncoder{w: w}
 	runtime.SetFinalizer(e, (*wkbEncoder).destroy)
 	return e
 }
 
 func encodeWkb(e *wkbEncoder, g *Geometry, fn func(*C.GEOSWKBWriter, *C.GEOSGeometry, *C.size_t) *C.uchar) ([]byte, error) {
+	e.m.Lock()
+	defer e.m.Unlock()
+
 	var size C.size_t
 	bytes := fn(e.w, g.g, &size)
 	if bytes == nil {
@@ -88,7 +99,9 @@ func (e *wkbEncoder) encodeHex(g *Geometry) ([]byte, error) {
 }
 
 func (e *wkbEncoder) destroy() {
-	// XXX: mutex
+	e.m.Lock()
+	defer e.m.Unlock()
+
 	cGEOSWKBWriter_destroy(e.w)
 	e.w = nil
 }
