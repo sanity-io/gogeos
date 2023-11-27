@@ -5,7 +5,7 @@ package geos
 
 /*
 #cgo LDFLAGS: -lgeos_c
-#include "geos.h"
+#include "go-geos.h"
 */
 import "C"
 

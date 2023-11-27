@@ -1,4 +1,4 @@
-#include "geos.h"
+#include "go-geos.h"
 
 void gogeos_notice_handler(const char *fmt, ...) {
     va_list ap;
